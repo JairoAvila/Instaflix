@@ -1,5 +1,8 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("kotlin-android-extensions")
     kotlin("android")
     kotlin("kapt")
 }
@@ -12,6 +15,7 @@ android {
         applicationId = "com.instaleap.instaflix"
         minSdkVersion(AndroidSdk.minSdkVersion)
         targetSdkVersion(AndroidSdk.compileSdkVersion)
+        multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
 
@@ -36,6 +40,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -44,6 +52,7 @@ dependencies {
     implementation(AndroidPlugins.kotlinStdLibPlugin)
     implementation(AndroidSupport.coreKtxPlugin)
     implementation(AndroidSupport.appcompatPlugin)
+    implementation("com.android.support:multidex:1.0.3")
 
     // UI Libraries
     implementation(UIPlugin.constraintLayoutPlugin)
@@ -61,6 +70,12 @@ dependencies {
     implementation(ArchComponentsLibraries.roomRuntime)
     kapt(ArchComponentsLibraries.roomCompiler)
 
+    // Network Library
+    implementation(NetworkLibraries.retrofit)
+    implementation(NetworkLibraries.okhttp)
+    implementation(NetworkLibraries.loggingInterceptor)
+    implementation(NetworkLibraries.gsonConverter)
+
     // Dependency Injection Library
     implementation(DILibraries.koinViewmodel)
     implementation(DILibraries.koinFragment)
@@ -70,6 +85,12 @@ dependencies {
     // Utils Libraries
     implementation(UtilsLibraries.coil)
     implementation(UtilsLibraries.leakCanary)
+
+    // Firebase
+    implementation (platform(FirebaseLibraries.bom))
+    implementation (FirebaseLibraries.crashlytics)
+    implementation (FirebaseLibraries.analytics)
+
 
     // Testing Libraries
     testImplementation(Testing.junitPlugin)
