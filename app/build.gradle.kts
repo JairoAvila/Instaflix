@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -45,8 +46,30 @@ dependencies {
     implementation(AndroidSupport.appcompatPlugin)
 
     // UI Libraries
-    implementation(AndroidSupport.constraintLayoutPlugin)
+    implementation(UIPlugin.constraintLayoutPlugin)
+    implementation(UIPlugin.recyclerView)
+    implementation(UIPlugin.cardView)
     implementation(UIPlugin.materialPlugin)
+
+    // Architecture Components Libraries
+    implementation(ArchComponentsLibraries.viewmodel)
+    implementation(ArchComponentsLibraries.lifecycleExtensions)
+    implementation(ArchComponentsLibraries.livedata)
+    implementation(ArchComponentsLibraries.navigationFragment)
+    implementation(ArchComponentsLibraries.navigationUI)
+    implementation(ArchComponentsLibraries.paging)
+    implementation(ArchComponentsLibraries.roomRuntime)
+    kapt(ArchComponentsLibraries.roomCompiler)
+
+    // Dependency Injection Library
+    implementation(DILibraries.koinViewmodel)
+    implementation(DILibraries.koinFragment)
+    implementation(DILibraries.koin)
+    implementation(DILibraries.koinScope)
+
+    // Utils Libraries
+    implementation(UtilsLibraries.coil)
+    implementation(UtilsLibraries.leakCanary)
 
     // Testing Libraries
     testImplementation(Testing.junitPlugin)
