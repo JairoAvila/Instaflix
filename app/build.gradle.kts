@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-    id("kotlin-android-extensions")
     kotlin("android")
+    id("kotlin-android-extensions")
     kotlin("kapt")
 }
 
@@ -18,8 +18,9 @@ android {
         multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"${Credentials.MOVIE_API_KEY}\"")
     }
 
     buildTypes {
