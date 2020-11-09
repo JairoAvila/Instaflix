@@ -27,22 +27,28 @@ android {
         }
     }
 
-    java {
+    compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
 }
 
 dependencies {
-
+    // Support Libraries
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(AndroidPlugins.kotlinStdLibPlugin)
     implementation(AndroidSupport.coreKtxPlugin)
     implementation(AndroidSupport.appcompatPlugin)
+
+    // UI Libraries
     implementation(AndroidSupport.constraintLayoutPlugin)
     implementation(UIPlugin.materialPlugin)
+
+    // Testing Libraries
     testImplementation(Testing.junitPlugin)
     androidTestImplementation(Testing.testJunitVersion)
     androidTestImplementation(Testing.testEspressoVersion)
