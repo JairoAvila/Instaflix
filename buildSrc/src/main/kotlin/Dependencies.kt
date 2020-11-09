@@ -9,11 +9,13 @@ object AndroidPlugins {
     object Version {
         const val kotlinVersion = "1.3.72"
         const val gradleVersion = "4.1.0"
+        const val googleServicesVersion = "4.3.4"
     }
 
     const val kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlinVersion}"
     const val gradlePlugin = "com.android.tools.build:gradle:${Version.gradleVersion}"
     const val kotlinStdLibPlugin = "org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlinVersion}"
+    const val googleServicesPlugin = "com.google.gms:google-services:${Version.googleServicesVersion}"
 
 }
 
@@ -76,6 +78,20 @@ object NetworkLibraries {
     const val okhttp = "com.squareup.okhttp3:okhttp:${Version.okhttp_version}"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Version.okhttp_version}"
     const val gsonConverter ="com.squareup.retrofit2:converter-gson:${Version.retrofit_version}"
+}
+
+object FirebaseLibraries {
+
+    private object Version {
+        const val bom_version = "26.0.0"
+        const val crashlytics_gradle_version = "2.3.0"
+    }
+
+    const val bom = "com.google.firebase:firebase-bom:${Version.bom_version}"
+    const val crashlytics = "com.google.firebase:firebase-crashlytics"
+    const val crashlyticsGradle = "com.google.firebase:firebase-crashlytics-gradle:${Version.crashlytics_gradle_version}"
+    const val analytics = "com.google.firebase:firebase-analytics"
+
 }
 
 object DILibraries {
