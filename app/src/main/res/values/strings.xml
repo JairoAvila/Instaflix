@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Instaflix</string>
+    <string name="home_btn">Películas</string>
+    <string name="coming_soon_btn">Series TV</string>
+    <string name="war">BELICA</string>
+    <string name="romance">ROMANCE</string>
 </resources>
