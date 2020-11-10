@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val viewmodelModule = module {
     viewModel { SplashViewModel() }
-    viewModel { MoviesViewModel() }
-    viewModel { TvSeriesViewModel() }
+    viewModel { MoviesViewModel(get()) }
+    viewModel { TvSeriesViewModel(get()) }
 }
