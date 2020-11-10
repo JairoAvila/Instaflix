@@ -97,7 +97,7 @@ object FirebaseLibraries {
 object DILibraries {
 
     private object Version {
-        const val koin_version = "2.1.5"
+        const val koin_version = "2.1.6"
     }
 
     const val koin = "org.koin:koin-android:${Version.koin_version}"
@@ -134,10 +134,16 @@ object Testing {
         const val junitVersion = "4.13.1"
         const val testJunitVersion = "1.1.2"
         const val testEspressoVersion = "3.3.0"
+        const val core_testing_version = "2.1.0"
+        const val coroutines_test_version = "1.3.6"
+        const val expekt_version = "0.5.0"
     }
 
-    const val junitPlugin = "junit:junit:${Version.junitVersion}"
-    const val testJunitVersion = "androidx.test.ext:junit:${Version.testJunitVersion}"
-    const val testEspressoVersion = "androidx.test.espresso:espresso-core:${Version.testEspressoVersion}"
+    const val junit = "junit:junit:${Version.junitVersion}"
+    const val testJunit = "androidx.test.ext:junit:${Version.testJunitVersion}"
+    const val testEspresso = "androidx.test.espresso:espresso-core:${Version.testEspressoVersion}"
+    const val coreTesting = "androidx.arch.core:core-testing:${Version.core_testing_version}"
+    const val coroutinesTesting = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutines_test_version}"
+    const val expekt = "com.winterbe:expekt:${Version.expekt_version}"
 }
 

@@ -88,13 +88,17 @@ dependencies {
     implementation(UtilsLibraries.leakCanary)
 
     // Firebase
-    implementation (platform(FirebaseLibraries.bom))
-    implementation (FirebaseLibraries.crashlytics)
-    implementation (FirebaseLibraries.analytics)
-
+    implementation(platform(FirebaseLibraries.bom))
+    implementation(FirebaseLibraries.crashlytics)
+    implementation(FirebaseLibraries.analytics)
 
     // Testing Libraries
-    testImplementation(Testing.junitPlugin)
-    androidTestImplementation(Testing.testJunitVersion)
-    androidTestImplementation(Testing.testEspressoVersion)
+    testImplementation(Testing.junit)
+    androidTestImplementation(Testing.testJunit)
+    androidTestImplementation(Testing.testEspresso)
+    testImplementation(Testing.expekt) { exclude(group = "org.jetbrains.kotlin") }
+    testImplementation(Testing.coreTesting)
+    testImplementation(Testing.coroutinesTesting)
+    androidTestImplementation(Testing.coreTesting)
+    androidTestImplementation(Testing.coroutinesTesting)
 }
