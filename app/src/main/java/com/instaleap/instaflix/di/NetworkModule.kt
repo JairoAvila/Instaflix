@@ -1,20 +1,25 @@
 package com.instaleap.instaflix.di
 
+import com.instaleap.instaflix.BuildConfig
 import com.instaleap.instaflix.data.remote.MovieApi
+import com.instaleap.instaflix.utils.ResponseHandler
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val API_URL = "https://api.themoviedb.org/"
+const val API_URL = "https://api.themoviedb.org/3/"
 
 val networkModule = module {
     factory { provideLoggingInterceptor() }
-    factory { provideOkHttpClient(get()) }
+    factory { ProvideAuthInterceptor() }
+    factory { provideOkHttpClient(get(), get()) }
     single { provideRetrofit(get()) }
     factory { provideMovieApi(get()) }
-
+    factory { ResponseHandler() }
 }
 
 fun provideLoggingInterceptor(): HttpLoggingInterceptor {
@@ -23,8 +28,18 @@ fun provideLoggingInterceptor(): HttpLoggingInterceptor {
     }
 }
 
-fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
+class ProvideAuthInterceptor() : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        var req = chain.request()
+        val url = req.url.newBuilder().addQueryParameter("api_key", BuildConfig.API_KEY).build()
+        req = req.newBuilder().url(url).build()
+        return chain.proceed(req)
+    }
+}
+
+fun provideOkHttpClient(authInterceptor: ProvideAuthInterceptor, interceptor: HttpLoggingInterceptor): OkHttpClient {
     return OkHttpClient().newBuilder().apply {
+        addInterceptor(authInterceptor)
         addInterceptor(interceptor)
     }.build()
 }
