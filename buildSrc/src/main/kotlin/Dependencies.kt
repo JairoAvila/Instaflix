@@ -137,6 +137,7 @@ object Testing {
         const val core_testing_version = "2.1.0"
         const val coroutines_test_version = "1.3.6"
         const val expekt_version = "0.5.0"
+        const val mockito_version = "3.3.3"
     }
 
     const val junit = "junit:junit:${Version.junitVersion}"
@@ -145,5 +146,7 @@ object Testing {
     const val coreTesting = "androidx.arch.core:core-testing:${Version.core_testing_version}"
     const val coroutinesTesting = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutines_test_version}"
     const val expekt = "com.winterbe:expekt:${Version.expekt_version}"
+    const val mockitoCore = "org.mockito:mockito-core:${Version.mockito_version}"
+    const val mockitoInline = "org.mockito:mockito-inline:${Version.mockito_version}"
 }
 

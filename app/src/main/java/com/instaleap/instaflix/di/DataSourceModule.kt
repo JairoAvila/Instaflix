@@ -5,6 +5,6 @@ import com.instaleap.instaflix.data.datasource.RemoteDataSource
 import org.koin.dsl.module
 
 val dataSourceModule = module {
-    single { LocalDataSource() }
-    single { RemoteDataSource() }
+    single { LocalDataSource(get()) }
+    single { RemoteDataSource(get(), get()) }
 }

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
     tools:context=".ui.dashboard.fragments.movies.MoviesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:text="@string/war"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/tv_romance"
             app:layout_constraintEnd_toStartOf="@+id/tv_romance"
             app:layout_constraintTop_toTopOf="@+id/tv_romance" />
@@ -32,11 +33,23 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:text="@string/romance"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="#F44336"
+        android:soundEffectsEnabled="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
