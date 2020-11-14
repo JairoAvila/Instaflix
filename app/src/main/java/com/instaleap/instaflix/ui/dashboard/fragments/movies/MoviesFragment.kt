@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -39,7 +40,40 @@ class MoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
+        setUpOnClickListener()
         setUpViewModelObserver()
+    }
+
+    private fun setUpOnClickListener() {
+
+        binding.tvPopular.setOnClickListener {
+            binding.tvPopular.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
+            binding.tvWar.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            binding.tvRomance.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            getMovies(MoviesAdapter.MovieType.POPULAR)
+        }
+
+        binding.tvWar.setOnClickListener {
+            binding.tvPopular.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            binding.tvWar.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
+            binding.tvRomance.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            getMovies(MoviesAdapter.MovieType.WAR)
+        }
+
+        binding.tvRomance.setOnClickListener {
+            binding.tvPopular.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            binding.tvRomance.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
+            binding.tvWar.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            getMovies(MoviesAdapter.MovieType.ROMANCE)
+        }
+
+    }
+
+    private fun getMovies(type: MoviesAdapter.MovieType) {
+        page = 1
+        mAdapter.cleanData()
+        movieType = type
+        viewmodel.getMovies(page)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,7 +99,6 @@ class MoviesFragment : Fragment() {
             override fun onLoadMore() {
                 loadMoreData()
             }
-
         })
 
         binding.rvMovies.addOnScrollListener(scrollListener)
@@ -73,9 +106,13 @@ class MoviesFragment : Fragment() {
 
     private fun loadMoreData() {
         Handler(Looper.getMainLooper()).postDelayed({
-            page += 1
-            viewmodel.getMovies(page)
+            nextPage()
         }, 1000)
+    }
+
+    private fun nextPage() {
+        page += 1
+        viewmodel.getMovies(page)
     }
 
     private fun setUpViewModelObserver() {
@@ -83,11 +120,18 @@ class MoviesFragment : Fragment() {
             when (response.status) {
                 Status.SUCCESS -> {
                     binding.progressBar.visibility = View.GONE
+                    val moviesFilter = mutableListOf<Movie>()
                     response.data?.let {
-                        mAdapter.addData(it.toMutableList())
-                        scrollListener.setLoaded()
+                        when (movieType) {
+                            MoviesAdapter.MovieType.POPULAR -> moviesFilter.addAll(it)
+                            MoviesAdapter.MovieType.WAR -> moviesFilter.addAll((it.filter { movie ->  movie.genre.contains(MoviesAdapter.MovieType.WAR.id) }))
+                            MoviesAdapter.MovieType.ROMANCE -> moviesFilter.addAll((it.filter { movie ->  movie.genre.contains(MoviesAdapter.MovieType.ROMANCE.id) }))
+                        }
                     }
+                    mAdapter.addData(moviesFilter)
+                    scrollListener.setLoaded()
                     binding.rvMovies.post { mAdapter.notifyDataSetChanged() }
+                    if(moviesFilter.size <= 2) nextPage()
                 }
                 Status.ERROR -> {
                     binding.progressBar.visibility = View.GONE
@@ -99,6 +143,7 @@ class MoviesFragment : Fragment() {
 
     companion object {
         var page = 1
+        var movieType: MoviesAdapter.MovieType = MoviesAdapter.MovieType.POPULAR
 
         fun newInstance() = MoviesFragment()
     }

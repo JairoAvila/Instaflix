@@ -27,7 +27,7 @@ class MoviesRepository(
                             page = response.page,
                             title = responseResult.title,
                             poster = responseResult.poster_path,
-                            genre = responseResult.genre_ids[0]
+                            genre = responseResult.genre_ids
                         )
                     )
                 }

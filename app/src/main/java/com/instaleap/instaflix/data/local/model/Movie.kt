@@ -8,6 +8,6 @@ data class Movie (
     @PrimaryKey var id: Int,
     var page : Int,
     var title: String,
-    var genre: Int,
+    var genre: List<Int>,
     var poster: String
 )

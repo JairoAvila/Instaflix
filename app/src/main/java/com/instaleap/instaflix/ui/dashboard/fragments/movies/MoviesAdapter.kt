@@ -59,6 +59,11 @@ class MoviesAdapter(private var movieList: MutableList<Movie?>) : RecyclerView.A
         notifyDataSetChanged()
     }
 
+    fun cleanData(){
+        this.movieList.clear()
+        notifyDataSetChanged()
+    }
+
     fun getItemAtPosition(position: Int): Movie? {
         return movieList[position]
     }
@@ -66,6 +71,8 @@ class MoviesAdapter(private var movieList: MutableList<Movie?>) : RecyclerView.A
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    enum class MovieType(val id: Int) { POPULAR(0), WAR(10752), ROMANCE(10749)}
 
     companion object {
         private const val TMDB_IMAGE_PATH = "https://image.tmdb.org/t/p/w500"
