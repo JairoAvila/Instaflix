@@ -15,7 +15,7 @@ const val API_URL = "https://api.themoviedb.org/3/"
 
 val networkModule = module {
     factory { provideLoggingInterceptor() }
-    factory { ProvideAuthInterceptor() }
+    factory { provideAuthInterceptor }
     factory { provideOkHttpClient(get(), get()) }
     single { provideRetrofit(get()) }
     factory { provideMovieApi(get()) }
@@ -28,7 +28,7 @@ fun provideLoggingInterceptor(): HttpLoggingInterceptor {
     }
 }
 
-class ProvideAuthInterceptor() : Interceptor {
+val provideAuthInterceptor: Interceptor = object : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var req = chain.request()
         val url = req.url.newBuilder().addQueryParameter("api_key", BuildConfig.API_KEY).build()
@@ -37,7 +37,7 @@ class ProvideAuthInterceptor() : Interceptor {
     }
 }
 
-fun provideOkHttpClient(authInterceptor: ProvideAuthInterceptor, interceptor: HttpLoggingInterceptor): OkHttpClient {
+fun provideOkHttpClient(authInterceptor: Interceptor, interceptor: HttpLoggingInterceptor): OkHttpClient {
     return OkHttpClient().newBuilder().apply {
         addInterceptor(authInterceptor)
         addInterceptor(interceptor)

@@ -9,12 +9,12 @@ import com.instaleap.instaflix.utils.Resource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
+@ExperimentalCoroutinesApi
 class MoviesRepository(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) {
 
-    @ExperimentalCoroutinesApi
     fun getMovieList(page: Int): Flow<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, MovieResponse>() {
 
@@ -27,7 +27,7 @@ class MoviesRepository(
                             page = response.page,
                             title = responseResult.title,
                             poster = responseResult.poster_path,
-                            genre = responseResult.genre_ids[0]
+                            genre = responseResult.genre_ids
                         )
                     )
                 }

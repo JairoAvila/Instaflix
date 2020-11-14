@@ -34,7 +34,7 @@ class MoviesViewModelTest {
             id = 1
             page = 1
             title = "fake movie 1"
-            genre = 1
+            genre = listOf(1,2,3)
             poster = "fakemovie1.png"
 
         }
@@ -43,7 +43,7 @@ class MoviesViewModelTest {
             id = 2
             page = 2
             title = "fake movie 2"
-            genre = 2
+            genre = listOf(1,2,3)
             poster = "fakemovie2.png"
 
         }
@@ -55,10 +55,10 @@ class MoviesViewModelTest {
 
         val viewModel = MoviesViewModel(fakeRepo)
 
-        val firstData = viewModel.getMovie.getOrAwaitValue()
+        val firstData = viewModel.movies.getOrAwaitValue()
         firstData.status.should.equal(Status.LOADING)
 
-        val secondData = viewModel.getMovie.getOrAwaitValue()
+        val secondData = viewModel.movies.getOrAwaitValue()
         secondData.status.should.equal(Status.SUCCESS)
 
     }

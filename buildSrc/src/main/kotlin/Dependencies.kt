@@ -61,7 +61,7 @@ object ArchComponentsLibraries {
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifecycle_version}"
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.navigation_version}"
     const val navigationUI = "androidx.navigation:navigation-ui-ktx:${Version.navigation_version}"
-    const val paging =  "androidx.paging:paging-runtime:${Version.paging_version}"
+    const val paging =  "androidx.paging:paging-runtime-ktx:${Version.paging_version}"
     const val roomRuntime =  "androidx.room:room-ktx:${Version.room_version}"
     const val roomCompiler =  "androidx.room:room-compiler:${Version.room_version}"
 

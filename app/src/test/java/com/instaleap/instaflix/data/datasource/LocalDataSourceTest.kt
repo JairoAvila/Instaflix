@@ -41,7 +41,7 @@ class LocalDataSourceTest {
                 id = 1
                 page = 1
                 title = "fake movie 1"
-                genre = 1
+                genre = listOf(1,2,3)
                 poster = "fakemovie1.png"
 
             }
@@ -50,7 +50,7 @@ class LocalDataSourceTest {
                 id = 2
                 page = 2
                 title = "fake movie 2"
-                genre = 2
+                genre = listOf(1,2,3)
                 poster = "fakemovie2.png"
 
             }
