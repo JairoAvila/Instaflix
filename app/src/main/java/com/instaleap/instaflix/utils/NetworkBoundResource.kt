@@ -12,20 +12,22 @@ import kotlinx.coroutines.flow.map
 @ExperimentalCoroutinesApi
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    fun asFlow(): Flow<Resource<ResultType>> = flow {
-        emit(Resource.loading())
-        val dbResult = loadFromDb().first()
-        if (shouldFetch(dbResult)) {
-            try {
-                emit(Resource.loading())
-                val apiResponse = fetchFromNetwork()
-                saveNetworkResult(processResponse(apiResponse.data!!))
+    fun asFlow(): Flow<Resource<ResultType>> {
+        return flow {
+            emit(Resource.loading())
+            val dbResult = loadFromDb().first()
+            if (shouldFetch(dbResult)) {
+                try {
+                    emit(Resource.loading())
+                    val apiResponse = fetchFromNetwork()
+                    saveNetworkResult(processResponse(apiResponse.data!!))
+                    emitAll(loadFromDb().map { Resource.success(it) })
+                } catch (e: Exception) {
+                    emit(Resource.error(e.message))
+                }
+            } else {
                 emitAll(loadFromDb().map { Resource.success(it) })
-            } catch (e: Exception) {
-                emit(Resource.error(e.message))
             }
-        } else {
-            emitAll(loadFromDb().map { Resource.success(it) })
         }
     }
 
